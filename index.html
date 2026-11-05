@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>書店｜把喜歡的故事帶回家</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #ffffff;
+      --paper-deep: #ffffff;
+      --ink: #292b2b;
+      --muted: #77736b;
+      --wine: #7b303c;
+      --wine-dark: #57212b;
+      --gold: #b8945b;
+      --line: #ded3c3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    h1, h2, h3, .serif, .navbar-brand { font-family: "Noto Serif TC", serif; }
+    .top-note {
+      background: #ffffff; color: var(--ink);
+      font-size: .8rem; letter-spacing: .12em; text-align: center; padding: .55rem 1rem;
+    }
+    .navbar { background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
+    .navbar-brand { color: var(--wine) !important; font-size: 1.35rem; font-weight: 700; letter-spacing: .08em; }
+    .brand-sub { display: block; color: var(--muted); font: .62rem "Noto Sans TC", sans-serif; letter-spacing: .2em; margin-top: -.1rem; }
+    .nav-link { color: var(--ink); font-size: .92rem; }
+    .nav-link:hover { color: var(--wine); }
+    .hero-intro { padding: 3.6rem 0 2rem; text-align: center; }
+    .eyebrow { color: var(--wine); letter-spacing: .24em; font-size: .78rem; font-weight: 600; }
+    .hero-intro h1 { font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.35; margin: .8rem 0; }
+    .hero-intro p { color: var(--muted); line-height: 1.9; margin: 0 auto; max-width: 620px; }
+    .carousel-wrap { max-width: 1312px; margin: 0 auto; padding: 0 1rem; }
+    .carousel-inner { border-radius: 6px; overflow: hidden; background: var(--paper-deep); }
+    .carousel-item { aspect-ratio: 1280 / 500; position: relative; }
+    .carousel-item img { display: block; width: 100%; height: 100%; object-fit: cover; filter: brightness(.76) saturate(.82); }
+    .carousel-caption { bottom: 12%; text-align: left; left: 9%; right: 9%; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
+    .carousel-caption .caption-kicker { font-size: .8rem; letter-spacing: .2em; margin-bottom: .7rem; }
+    .carousel-caption h2 { font-size: clamp(1.7rem, 4vw, 3rem); margin-bottom: .6rem; }
+    .carousel-caption p { font-size: 1rem; max-width: 540px; }
+    .carousel-indicators [data-bs-target] { width: 8px; height: 8px; border-radius: 50%; border: 0; margin: 0 5px; }
+    .section { padding: 4rem 0; }
+    .section-heading { text-align: center; margin-bottom: 2rem; }
+    .section-heading h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: .55rem 0; }
+    .section-heading p { color: var(--muted); }
+    .book-card {
+      height: 100%; overflow: hidden; background: #ffffff;
+      border: 1px solid var(--line); border-radius: 5px; transition: transform .2s, box-shadow .2s;
+    }
+    .book-card:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(55,39,25,.08); }
+    .book-card img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .book-card-content { padding: 1.2rem; }
+    .book-card h3 { font-size: 1.12rem; margin-bottom: .6rem; }
+    .book-card p { color: var(--muted); font-size: .92rem; line-height: 1.8; margin-bottom: 0; }
+    .accordion { max-width: 850px; margin: 0 auto; --bs-accordion-bg: #ffffff; --bs-accordion-border-color: var(--line); --bs-accordion-btn-color: var(--ink); --bs-accordion-active-color: var(--wine-dark); --bs-accordion-active-bg: #ffffff; --bs-accordion-btn-focus-box-shadow: 0 0 0 .15rem rgba(123,48,60,.12); }
+    .accordion-button { font-weight: 600; padding: 1.15rem 1.25rem; }
+    .accordion-body { color: #625e57; line-height: 1.9; }
+    .notice { background: #ffffff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .notice-inner { max-width: 850px; margin: auto; padding: 2rem 1rem; display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; justify-content: space-between; }
+    .notice h2 { font-size: 1.35rem; margin-bottom: .35rem; }
+    .notice p { color: var(--muted); margin: 0; font-size: .9rem; }
+    .btn-wine { background: #ffffff; color: var(--wine); border: 1px solid var(--wine); padding: .75rem 1.25rem; border-radius: 3px; }
+    .btn-wine:hover { background: #ffffff; color: var(--wine-dark); border-color: var(--wine-dark); }
+    footer { background: #ffffff; color: var(--ink); padding: 2rem 1rem; text-align: center; border-top: 1px solid var(--line); }
+    footer .footer-brand { font-family: "Noto Serif TC", serif; color: var(--wine); letter-spacing: .12em; font-size: 1.2rem; }
+    footer p { color: var(--muted); font-size: .82rem; margin: .6rem 0 0; }
+    .footer-divider { max-width: 720px; margin: 1.25rem auto; border: 0; border-top: 1px solid rgba(41,43,43,.2); opacity: 1; }
+    @media (max-width: 575px) {
+      .hero-intro { padding: 2.7rem 1rem 1.6rem; }
+      .carousel-caption { bottom: 9%; }
+      .carousel-caption p { font-size: .88rem; }
+      .section { padding: 3rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        書店
+        <span class="brand-sub">BOOKSHOP</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="切換導覽列">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#about">書店故事</a></li>
+          <li class="nav-item"><a class="nav-link" href="#featured">本週選書</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">書店小指南</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero-intro" id="about">
+      <div class="eyebrow">A LITTLE PLACE FOR BIG IDEAS</div>
+      <h1>讓閱讀，成為生活的風景。</h1>
+      <p>藏在校園日常裡的一間書店。從外語、文學到設計與生活選書，<br class="d-none d-md-block">希望每一次翻頁，都能帶你遇見新的世界。</p>
+    </section>
+
+    <section class="carousel-wrap" aria-label="書店輪播推薦">
+      <div id="bookshopCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4500">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="第 1 張"></button>
+          <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="1" aria-label="第 2 張"></button>
+          <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="2" aria-label="第 3 張"></button>
+          <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="3" aria-label="第 4 張"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1280&h=500&q=85" alt="桌上攤開的書本">
+            <div class="carousel-caption">
+              <div class="caption-kicker">01 / FIND YOUR NEXT STORY</div>
+              <h2>每一本書，都是新的起點。</h2>
+              <p>在熟悉的日常裡，發現意想不到的故事。</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1280&h=500&q=85" alt="專注閱讀中的讀者">
+            <div class="carousel-caption">
+              <div class="caption-kicker">02 / SLOW READING</div>
+              <h2>留一點時間，給自己閱讀。</h2>
+              <p>一杯飲料、一段安靜時光，剛剛好。</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1280&h=500&q=85" alt="堆疊的書本與閱讀時光">
+            <div class="carousel-caption">
+              <div class="caption-kicker">03 / WORDS & IDEAS</div>
+              <h2>把靈感，寫進生活裡。</h2>
+              <p>語言、文字與創意，讓想像持續發生。</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1280&h=500&q=85" alt="閱讀中的書本">
+            <div class="carousel-caption">
+              <div class="caption-kicker">04 / BOOKS FOR EVERY DAY</div>
+              <h2>日常裡，也有值得珍藏的事。</h2>
+              <p>從經典文學到生活風格，找到你的心頭好。</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bookshopCarousel" data-bs-slide="prev" aria-label="上一張">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bookshopCarousel" data-bs-slide="next" aria-label="下一張">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">EDITOR'S PICKS</div>
+          <h2>本週選書靈感</h2>
+          <p>給不同心情的你，挑一本剛剛好的書。</p>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 g-lg-4">
+          <div class="col">
+            <article class="book-card">
+              <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=700&h=525&q=85" alt="書本與閱讀眼鏡">
+              <div class="book-card-content">
+                <h3>文學與故事</h3>
+                <p>在小說與散文裡感受不同人生，讓文字陪你度過忙碌的一天。</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="book-card">
+              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&h=525&q=85" alt="寫作筆記與筆">
+              <div class="book-card-content">
+                <h3>語言與文化</h3>
+                <p>從語言學習到異國文化，讓每一次閱讀都成為看見世界的窗口。</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="book-card">
+              <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&h=525&q=85" alt="書架上的各式書籍">
+              <div class="book-card-content">
+                <h3>設計與生活</h3>
+                <p>收集美感、創意與生活提案，為日常注入一點新的靈感。</p>
+              </div>
+            </article>
+          </div>
+          <div class="col">
+            <article class="book-card">
+              <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=700&h=525&q=85" alt="圖書館中的整齊書架">
+              <div class="book-card-content">
+                <h3>閱讀與探索</h3>
+                <p>從不同領域的好書出發，發現新觀點，開啟日常裡的更多可能。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <footer>
+    <hr class="footer-divider" aria-hidden="true">
+    <p>班級：數位2D 學號：114211015　姓名：范植威</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
